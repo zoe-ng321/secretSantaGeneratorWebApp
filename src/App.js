@@ -28,7 +28,7 @@ function App() {
   const isTestLogin = false;
 
   return (
-    <div>
+    <div className="App">
       <Router>
         <NavBar/>
         <Switch>
