@@ -2,8 +2,13 @@
 function NotFound() {
 
   return (
-    <div>
-      NotFound
+    <div class="container">
+      <h1>
+        Page Not Found
+      </h1>
+      <h3>
+        Sorry, this page was not found.
+      </h3>
     </div>
   );
 }

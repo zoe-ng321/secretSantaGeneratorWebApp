@@ -8,6 +8,7 @@ import {
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/navbar';
+import Footer from './components/footer';
 import NotFound from './containers/notFound';
 import Home from './containers/unauthenticated/home';
 import Login from './containers/unauthenticated/login';
@@ -49,6 +50,7 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
+        <Footer/>
       </Router>
     </div>
   );
