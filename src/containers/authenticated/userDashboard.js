@@ -5,12 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 
 function UserDashboard() {
 
   return (
-    <div class="container">
+    <Container fluid className="container">
       <div style={{ direction: 'flex', flexDirection:'row'}}>
         <h1>Dashboard</h1>
         <div>
@@ -29,7 +30,7 @@ function UserDashboard() {
           </Card.Body>
         </Card>
       </div>
-    </div>
+    </Container>
   );
 }
 

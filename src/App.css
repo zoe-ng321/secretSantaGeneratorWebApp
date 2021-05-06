@@ -2,10 +2,6 @@ html{
   overflow-x: hidden;
 }
 
-.App {
-
-}
-
 .container{
   min-height: 100vh;
   width: 100%;
@@ -29,11 +25,29 @@ html{
   .hero {
     padding-top: 30px;
     margin-top: 0px;
-    background-color: lightblue;
+    background-color: rgb(240,240,240);
+    width: auto;
   }
   .hero div:nth-child(1) {
     padding-bottom: 30px;
+  }
+}
 
+@media (max-width: 530px) {
+  .hero {
+    padding-top: 30px;
+    margin-top: 0px;
+    background-color: rgb(240,240,240);
+    width: auto;
+  }
+  .hero div:nth-child(1) {
+    padding-bottom: 30px;
+  }
+  .hero img{
+    width: 250px;
+  }
+  .formField{
+    width: 100% !important;
   }
 }
 
@@ -64,11 +78,11 @@ html{
 .steps{
   margin-top: 20px;
   min-height: 90vh;
-
 }
 
 .step{
-
+  margin-top: 20px;
+  font-size: 28px;
 }
 
 .navbar{
