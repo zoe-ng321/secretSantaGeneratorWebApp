@@ -17,6 +17,8 @@ const NavBar = (props) => {
           <Nav.Link as={Link} to="/login" onClick={() => setExpanded(false)}>Login</Nav.Link>
           <Nav.Link as={Link} to="/register" onClick={() => setExpanded(false)}>Register</Nav.Link>
           <Nav.Link as={Link} to="/dashboard" onClick={() => setExpanded(false)}>Dashboard</Nav.Link>
+          <Nav.Link as={Link} to="/createGroup" onClick={() => setExpanded(false)}>Create Group</Nav.Link>
+          <Nav.Link as={Link} to="/groupDashboard" onClick={() => setExpanded(false)}>Group Dashboard</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

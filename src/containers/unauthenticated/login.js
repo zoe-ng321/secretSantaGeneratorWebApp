@@ -1,8 +1,11 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+//import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { Link } from "react-router-dom";
+import { Input, Button } from 'react-rainbow-components';
 
 class Login extends React.Component {
   constructor(props){
@@ -13,7 +16,8 @@ class Login extends React.Component {
   }
 
   render(){
-    return (
+
+    const v1 = (
       <Container fluid className="container">
         <h1>Login</h1>
         <Form>
@@ -30,11 +34,54 @@ class Login extends React.Component {
               Login
             </Button>
             <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-              Don't have an account? <a href="#">Register now!</a>
+              Don't have an account? <Link to="/register">Register now!</Link>
             </Form.Text>
           </Col>
         </Form>
       </Container>
+    )
+
+    const v2 = (
+      <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
+      <Container fluid className="container">
+        <h1>Login</h1>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <Input
+              label="Email"
+              placeholder="inputEmail@gmail.com"
+              type="email"
+              className="rainbow-p-around_medium"
+              style={{marginTop: '10px'}}
+            />
+            <Input
+              label="Password"
+              placeholder="**********"
+              type="password"
+              className="rainbow-p-around_medium"
+              style={{marginTop: '10px'}}
+            />
+            <Button
+              label="Login"
+              onClick={() => alert('clicked!')}
+              variant="brand"
+              className="rainbow-m-around_medium"
+              style={{marginTop: '15px', width: '250px'}}
+            />
+            <div style={{marginTop: '15px'}}>
+              Don't have an account? <Link to="/register">Register now!</Link>
+            </div>
+          </Col>
+          <Col lg={3}></Col>
+        </Row>
+      </Container>
+      </div>
+    )
+    return (
+      <div>
+        {v2}
+      </div>
     );
   }
 }
