@@ -124,3 +124,8 @@ html{
   width: 100%;
   font-size: 16px;
 }
+
+.groupCard{
+   width: 18rem;
+   margin-top: 15px;
+}

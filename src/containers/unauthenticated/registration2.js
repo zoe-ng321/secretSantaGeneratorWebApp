@@ -4,10 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 
-function Registration2() {
+function Registration2(props) {
+  const state = props.location;
+  console.log(state)
   const v1 = (
     <Container fluid className="container">
       <h1>Registration</h1>
@@ -109,4 +111,4 @@ function Registration2() {
   );
 }
 
-export default Registration2;
+export default withRouter(Registration2);

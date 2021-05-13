@@ -3,20 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 class Wishlist extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      value: "text"
-    }
-  }
 
+  }
   render(){
     var isUpdate = this.props.isUpdate;
-    var groupId = this.props.groupId;
-
+    var groupId = this.props.location.state.groupId;
     return (
       <Container fluid className="container">
         <h1>{isUpdate ? 'Update' : 'Create'} Wishlist</h1>
@@ -34,7 +30,7 @@ class Wishlist extends React.Component {
               {isUpdate ? 'Update' : 'Create'} Wishlist
             </Button>
             <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-              <Link to="/group">Back</Link>
+              <Link to={"/groupDashboard/" + groupId}>Back</Link>
             </Form.Text>
           </Col>
         </Form>
@@ -43,4 +39,4 @@ class Wishlist extends React.Component {
   }
 }
 
-export default Wishlist;
+export default withRouter(Wishlist);

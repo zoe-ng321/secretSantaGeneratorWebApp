@@ -17,8 +17,19 @@ class Registration extends React.Component {
     }
   }
 
-  render(){
+  handleFirstNameChange = e => {
+    this.setState({ firstName: e.target.value });
+  };
 
+  handleLastNameChange = e => {
+    this.setState({ lastName: e.target.value });
+  };
+
+  handleAddressChange = e => {
+    this.setState({ address: e.target.value });
+  };
+
+  render(){
     const v1 = (
     <Container fluid className="container">
       <h1>Registration</h1>
@@ -32,17 +43,29 @@ class Registration extends React.Component {
           <Row>
             <Form.Group as={Col} md="4" controlId="formFirstName">
               <Form.Label>First Name</Form.Label>
-              <Form.Control type="firstName" placeholder="First Name" value={this.state.firstName}/>
+              <Form.Control
+                type="firstName"
+                placeholder="First Name"
+                value={this.state.firstName}
+                onChange={this.handleFirstNameChange}/>
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="formLastName">
               <Form.Label>Last Name</Form.Label>
-              <Form.Control type="lastName" placeholder="Last Name"/>
+              <Form.Control
+                type="lastName"
+                placeholder="Last Name"
+                value={this.state.lastName}
+                onChange={this.handleLastNameChange}/>
             </Form.Group>
           </Row>
         </Col>
         <Form.Group as={Col} md="6" controlId="formAddress">
           <Form.Label>Address</Form.Label>
-          <Form.Control type="address" placeholder="123 Main St. City, State 78701"/>
+          <Form.Control
+            type="address"
+            placeholder="123 Main St. City, State 78701"
+            value={this.state.address}
+            onChange={this.handleAddressChange}/>
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="formEmail">
           <Form.Label>Email address</Form.Label>
@@ -86,6 +109,7 @@ class Registration extends React.Component {
                     className="rainbow-p-around_medium"
                     style={{marginTop: '10px'}}
                     value={this.state.firstName}
+                    onChange={this.handleFirstNameChange}
                   />
                   </Col>
                   <Col lg={4}>
@@ -95,6 +119,8 @@ class Registration extends React.Component {
                     type="text"
                     className="rainbow-p-around_medium"
                     style={{marginTop: '10px'}}
+                    value={this.state.lastName}
+                    onChange={this.handleLastNameChange}
                   />
                 </Col>
                 <Col lg={2}></Col>
@@ -110,6 +136,8 @@ class Registration extends React.Component {
                   type="text"
                   className="rainbow-p-around_medium"
                   style={{marginTop: '10px'}}
+                  value={this.state.address}
+                  onChange={this.handleAddressChange}
                 />
                 <Link to={{
                   pathname: "/register2",

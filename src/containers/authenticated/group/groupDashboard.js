@@ -1,43 +1,59 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import { RenderIf } from 'react-rainbow-components';
 
-
-function GroupDashboard() {
+function GroupDashboard(props) {
 
   var isOwner = true;
   var isPaired = false;
   var name = "Test";
+  let { groupId } = useParams();
 
   return (
     <Container fluid className="container">
-      <div style={{ direction: 'flex', flexDirection:'row'}}>
+      <div style={{marginTop: '10px', marginBottom: '15px'}}>
         <h1>Group Dashboard</h1>
-        <div>
-          <div>
-            <Button variant="primary">Update Wishlist</Button>
-          </div>
-          {(isOwner && !isPaired) ?
-            <div style={{marginTop: '20px', marginBottom: '20px'}}>
-              <Button variant="primary">Create Pairings</Button>
-            </div> : ''
-          }
-          {!isPaired ?
-            <div style={{marginTop: '20px', marginBottom: '20px'}}>
-              <Button variant="primary">Add Exclusion</Button>
-            </div> : ''}
-        </div>
-        {isPaired ?
+        <Row>
+          <Col lg={2}>
+            <Link to={{
+              pathname: "/wishlist",
+              state: {
+                groupId: groupId
+              }
+            }}>
+              <Button variant="primary">Update Wishlist</Button>
+            </Link>
+          </Col>
+          <RenderIf isTrue={!isPaired}>
+            <Col lg={2}>
+              <Link to={{
+                pathname: "/addExclusion",
+                state: {
+                  groupId: groupId,
+                }
+              }}>
+                <Button variant="primary">Add Exclusion</Button>
+              </Link>
+            </Col>
+          </RenderIf>
+          <RenderIf isTrue={isOwner && !isPaired}>
+            <Col lg={2}>
+              <Button variant="secondary">Create Pairings</Button>
+            </Col>
+          </RenderIf>
+        </Row>
+        <RenderIf isTrue={isPaired}>
           <div style={{marginTop: '20px', marginBottom: '20px'}}>
             <h4>You are the Secret Santa for {name}!</h4>
-          </div> : ''}
-
+          </div>
+        </RenderIf>
       </div>
       <div>
         <Table responsive="lg">

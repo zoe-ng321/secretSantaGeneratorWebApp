@@ -16,8 +16,13 @@ import Registration from './containers/unauthenticated/registration';
 import Registration2 from './containers/unauthenticated/registration2';
 import UserDashboard from './containers/authenticated/user/userDashboard';
 import UpdatePassword from './containers/authenticated/user/updatePassword';
+import UpdateProfile from './containers/authenticated/user/updateProfile';
+import Profile from './containers/authenticated/user/profile';
 import GroupDashboard from './containers/authenticated/group/groupDashboard';
 import CreateGroup from './containers/authenticated/group/createGroup';
+import JoinGroup from './containers/authenticated/group/joinGroup';
+import AddExclusion from './containers/authenticated/group/addExclusion';
+import Wishlist from './containers/authenticated/wishlist/wishlist';
 
 function App() {
 
@@ -52,12 +57,23 @@ function App() {
           <Route path="/updatePassword">
             <UpdatePassword/>
           </Route>
+          <Route path="/updateProfile">
+            <UpdateProfile/>
+          </Route>
+          <Route path="/profile">
+            <Profile/>
+          </Route>
           <Route path="/createGroup">
             <CreateGroup/>
           </Route>
-          <Route path="/groupDashboard">
-            <GroupDashboard />
+          <Route path="/joinGroup">
+            <JoinGroup/>
           </Route>
+          <Route path="/addExclusion">
+            <AddExclusion/>
+          </Route>
+          <Route path="/groupDashboard/:groupId" render={authGuard(GroupDashboard)}></Route>
+          <Route path="/wishlist" render={authGuard(Wishlist)}></Route>
           <Route path="/dashboard" render={authGuard(UserDashboard)}></Route>
           <Route exact path="/">
             {isTestLogin ? <UserDashboard/> : <Home/>}
