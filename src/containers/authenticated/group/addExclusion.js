@@ -4,31 +4,33 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import { Link, withRouter } from "react-router-dom";
-import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import { DatePicker } from 'react-rainbow-components';
+import { Select } from 'react-rainbow-components';
 
 class AddExclusion extends React.Component {
-  constructor(props){
-    super(props);
-
-  }
 
   render(){
     const groupId = this.props.location.state.groupId;
+    const containerStyles = {
+    maxWidth: 700,
+};
+
+const options = [
+    { value: 'option 1', label: 'Option 1' },
+    { value: 'option 2', label: 'Option 2' },
+    { value: 'option 3', label: 'Option 3' },
+];
     return (
       <Container fluid className="container">
         <h1>Add Exclusion</h1>
         <Form>
           <Form.Group as={Col} md="6" controlId="formPerson1">
-            <Form.Label>Person 1</Form.Label>
-            <Form.Control as="select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </Form.Control>
+            <Select
+              label="Person 1"
+              options={options}
+              id="example-select-1"
+              style={containerStyles}
+              className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
+            />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formPerson2">
             <Form.Label>Person 2</Form.Label>

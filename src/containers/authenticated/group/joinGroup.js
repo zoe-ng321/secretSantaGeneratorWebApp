@@ -4,17 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
-import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import { DatePicker } from 'react-rainbow-components';
 
 class JoinGroup extends React.Component {
-  constructor(props){
-    super(props);
-
-  }
 
   render(){
     return (

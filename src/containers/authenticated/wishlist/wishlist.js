@@ -6,10 +6,7 @@ import Col from 'react-bootstrap/Col';
 import { Link, withRouter } from "react-router-dom";
 
 class Wishlist extends React.Component {
-  constructor(props){
-    super(props);
 
-  }
   render(){
     var isUpdate = this.props.isUpdate;
     var groupId = this.props.location.state.groupId;

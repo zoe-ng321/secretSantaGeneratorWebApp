@@ -6,8 +6,6 @@ import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
 import { DatePicker } from 'react-rainbow-components';
 
 class CreateGroup extends React.Component {

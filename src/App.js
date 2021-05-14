@@ -1,8 +1,7 @@
 import {
   Route,
   BrowserRouter as Router,
-  Switch,
-  Redirect
+  Switch
 } from "react-router-dom";
 
 import './App.css';
@@ -54,24 +53,12 @@ function App() {
           <Route path="/register2">
             <Registration2 />
           </Route>
-          <Route path="/updatePassword">
-            <UpdatePassword/>
-          </Route>
-          <Route path="/updateProfile">
-            <UpdateProfile/>
-          </Route>
-          <Route path="/profile">
-            <Profile/>
-          </Route>
-          <Route path="/createGroup">
-            <CreateGroup/>
-          </Route>
-          <Route path="/joinGroup">
-            <JoinGroup/>
-          </Route>
-          <Route path="/addExclusion">
-            <AddExclusion/>
-          </Route>
+          <Route path="/updatePassword" render={authGuard(UpdatePassword)}></Route>
+          <Route path="/updateProfile" render={authGuard(UpdateProfile)}></Route>
+          <Route path="/profile" render={authGuard(Profile)}></Route>
+          <Route path="/joinGroup" render={authGuard(JoinGroup)}></Route>
+          <Route path="/createGroup" render={authGuard(CreateGroup)}></Route>
+          <Route path="/addExclusion" render={authGuard(AddExclusion)}></Route>
           <Route path="/groupDashboard/:groupId" render={authGuard(GroupDashboard)}></Route>
           <Route path="/wishlist" render={authGuard(Wishlist)}></Route>
           <Route path="/dashboard" render={authGuard(UserDashboard)}></Route>

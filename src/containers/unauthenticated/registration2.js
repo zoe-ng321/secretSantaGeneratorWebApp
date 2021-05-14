@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 //import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -8,8 +8,16 @@ import { Link, withRouter } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 
 function Registration2(props) {
-  const state = props.location;
-  console.log(state)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const registration1 = props.location.state;
+
+  const submit = () => {
+    const request = {...registration1, email: email, password: password}
+    console.log(request)
+  }
+
   const v1 = (
     <Container fluid className="container">
       <h1>Registration</h1>
@@ -44,7 +52,7 @@ function Registration2(props) {
           <Form.Control type="password" placeholder="Password"/>
         </Form.Group>
         <Col md="6">
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={submit}>
             Register
           </Button>
         </Col>
@@ -74,6 +82,8 @@ function Registration2(props) {
               type="email"
               className="rainbow-p-around_medium"
               style={{marginTop: '10px'}}
+              value={email}
+              onChange={(e) => {setEmail(e.target.value)}}
             />
             <Input
               label="Password"
@@ -81,8 +91,10 @@ function Registration2(props) {
               type="password"
               className="rainbow-p-around_medium"
               style={{marginTop: '10px'}}
+              value={password}
+              onChange={(e) => {setPassword(e.target.value)}}
             />
-            <Link to="/register">
+            <Link to= "/register">
               <Button
                 label="Back"
                 variant="brand"
@@ -92,7 +104,7 @@ function Registration2(props) {
             </Link>
             <Button
               label="Register"
-              onClick={() => alert('clicked!')}
+              onClick={submit}
               variant="brand"
               className="rainbow-m-around_medium"
               style={{marginTop: '20px', width: '225px', marginLeft:'10px'}}

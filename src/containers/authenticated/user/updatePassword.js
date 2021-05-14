@@ -30,6 +30,9 @@ class UpdatePassword extends React.Component {
             <Button variant="primary" type="submit">
               Update
             </Button>
+            <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
+              <Link to={"/profile"}>Back</Link>
+            </Form.Text>
           </Col>
         </Form>
       </Container>
