@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,14 +6,16 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 
-function Profile() {
+ const Profile = () => {
 
-  const user = {
+  const userData = {
     firstName: "Test",
     lastName: "User",
     email: "testUser@gmail.com",
     address: "123 Main St.",
   }
+
+  const [user, setUser] = useState({})
 
   return (
     <Container fluid className="container">
@@ -21,9 +23,9 @@ function Profile() {
         <h1>Profile</h1>
         <Row>
           <Col lg={6}>
-            <p>Name: {user.firstName + ' ' + user.lastName}</p>
-            <p>Email: {user.email}</p>
-            <p>Address: {user.address}</p>
+            <p>Name: {userData.firstName + ' ' + user.lastName}</p>
+            <p>Email: {userData.email}</p>
+            <p>Address: {userData.address}</p>
           </Col>
         </Row>
         <Row>

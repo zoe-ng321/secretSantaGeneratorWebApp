@@ -13,7 +13,7 @@ const Registration = (props) =>{
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
 
-  const v1 = (
+  /*const v1 = (
     <Container fluid className="container">
       <h1>Registration</h1>
       <Form>
@@ -65,7 +65,7 @@ const Registration = (props) =>{
         </Col>
       </Form>
     </Container>
-    );
+  );*/
 
   const v2 = (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>

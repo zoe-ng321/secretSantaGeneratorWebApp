@@ -36,9 +36,6 @@ html{
   .hero div:nth-child(1) {
     padding-bottom: 30px;
   }
-  .footerSection {
-    margin-left: 20px;
-  }
 }
 
 @media (max-width: 530px) {
@@ -56,6 +53,9 @@ html{
   }
   .formField{
     width: 100% !important;
+  }
+  .aboutSection{
+    width: 90%;
   }
 }
 
@@ -117,15 +117,21 @@ html{
 }
 
 .footerRow{
-  margin-left: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-right: 1rem;
   width: 100%;
   font-size: 16px;
+  margin: 20px;
+}
+
+.footerItem{
+  color: white;
+  margin-top: 10px;
 }
 
 .groupCard{
    width: 18rem;
    margin-top: 15px;
+}
+
+.aboutSection{
+  width: 75%;
 }

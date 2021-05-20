@@ -4,20 +4,21 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 
 const Login = () => {
-
+  const history = useHistory();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const login = () => {
     const request = {email: email, password: password}
     console.log(request)
+    history.push('/dashboard');
   }
 
-  const v1 = (
+  /*const v1 = (
     <Container fluid className="container">
       <h1>Login</h1>
       <Form>
@@ -47,7 +48,7 @@ const Login = () => {
         </Col>
       </Form>
     </Container>
-  )
+  )*/
 
   const v2 = (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>

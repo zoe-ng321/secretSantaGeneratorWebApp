@@ -6,8 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-
-function UserDashboard() {
+const UserDashboard = () => {
 
   return (
     <Container fluid className="container">

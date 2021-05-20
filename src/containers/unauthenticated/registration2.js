@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import { Link, withRouter } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 
-function Registration2(props) {
+const Registration2 = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +18,7 @@ function Registration2(props) {
     console.log(request)
   }
 
-  const v1 = (
+  /*const v1 = (
     <Container fluid className="container">
       <h1>Registration</h1>
       <Form>
@@ -58,7 +58,7 @@ function Registration2(props) {
         </Col>
       </Form>
     </Container>
-  );
+  );*/
 
   const v2 = (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>

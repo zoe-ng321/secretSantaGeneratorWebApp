@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import NotFound from './containers/notFound';
 import Home from './containers/unauthenticated/home';
 import Login from './containers/unauthenticated/login';
+import About from './containers/unauthenticated/about';
 import Registration from './containers/unauthenticated/registration';
 import Registration2 from './containers/unauthenticated/registration2';
 import UserDashboard from './containers/authenticated/user/userDashboard';
@@ -52,6 +53,9 @@ function App() {
           </Route>
           <Route path="/register2">
             <Registration2 />
+          </Route>
+          <Route path="/about">
+            <About />
           </Route>
           <Route path="/updatePassword" render={authGuard(UpdatePassword)}></Route>
           <Route path="/updateProfile" render={authGuard(UpdateProfile)}></Route>

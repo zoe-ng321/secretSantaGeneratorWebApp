@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,12 +7,50 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import { RenderIf } from 'react-rainbow-components';
 
-function GroupDashboard(props) {
+const GroupDashboard = (props) => {
+
+  let { groupId } = useParams();
+  const [group, setGroup] = useState({})
 
   var isOwner = true;
   var isPaired = false;
   var name = "Test";
-  let { groupId } = useParams();
+
+  const createPairings = () => {
+    alert("create pairings clicked");
+  }
+
+  const groupMembers = [
+    {
+      name: "Test",
+      address: '123 Test St',
+      wishlist: 'food',
+    },
+    {
+      name: "Test1",
+      address: '321 Test St',
+      wishlist: 'Gift card',
+    },
+    {
+      name: "Test2",
+      address: '100 Test St',
+      wishlist: 'Clothes',
+    },
+
+  ]
+
+  const signupDeadline = new Date();
+  const endDate = new Date();
+
+  let tableBody = groupMembers.map(member => {
+    return(
+      <tr>
+        <td>{member.name}</td>
+        <td>{member.address}</td>
+        <td>{member.wishlist}</td>
+      </tr>
+    )
+  })
 
   return (
     <Container fluid className="container">
@@ -43,7 +81,7 @@ function GroupDashboard(props) {
           </RenderIf>
           <RenderIf isTrue={isOwner && !isPaired}>
             <Col lg={2}>
-              <Button variant="secondary">Create Pairings</Button>
+              <Button variant="secondary" onClick={createPairings}>Create Pairings</Button>
             </Col>
           </RenderIf>
         </Row>
@@ -63,21 +101,7 @@ function GroupDashboard(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Test</td>
-              <td>123 Test St</td>
-              <td>Food</td>
-            </tr>
-            <tr>
-              <td>Test1</td>
-              <td>321 Test St</td>
-              <td>Gift card</td>
-            </tr>
-            <tr>
-              <td>Test2</td>
-              <td>100 Test St</td>
-              <td>Clothes</td>
-            </tr>
+            {tableBody}
           </tbody>
         </Table>
       </div>
