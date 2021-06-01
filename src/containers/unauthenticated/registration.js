@@ -89,8 +89,7 @@ const Registration = (props) =>{
                   label="First Name"
                   placeholder="First"
                   type="text"
-                  className="rainbow-p-around_medium"
-                  style={{marginTop: '10px'}}
+                  className="rainbow-p-around_medium infoInput"
                   value={firstName}
                   onChange={e => {setFirstName(e.target.value)}}
                 />
@@ -100,8 +99,7 @@ const Registration = (props) =>{
                   label="Last Name"
                   placeholder="Last"
                   type="text"
-                  className="rainbow-p-around_medium"
-                  style={{marginTop: '10px'}}
+                  className="rainbow-p-around_medium infoInput"
                   value={lastName}
                   onChange={e => {setLastName(e.target.value)}}
                 />
@@ -117,8 +115,7 @@ const Registration = (props) =>{
                 label="Address"
                 placeholder="123 Main St. City, State 78701"
                 type="text"
-                className="rainbow-p-around_medium"
-                style={{marginTop: '10px'}}
+                className="rainbow-p-around_medium infoInput"
                 value={address}
                 onChange={e => {setAddress(e.target.value)}}
               />

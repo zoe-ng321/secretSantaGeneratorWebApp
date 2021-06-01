@@ -64,7 +64,7 @@ const GroupDashboard = (props) => {
                 groupId: groupId
               }
             }}>
-              <Button variant="primary">Update Wishlist</Button>
+              <Button variant="primary" style={{marginTop:'10px'}}>Update Wishlist</Button>
             </Link>
           </Col>
           <RenderIf isTrue={!isPaired}>
@@ -75,13 +75,13 @@ const GroupDashboard = (props) => {
                   groupId: groupId,
                 }
               }}>
-                <Button variant="primary">Add Exclusion</Button>
+                <Button variant="primary" style={{marginTop:'10px'}}>Add Exclusion</Button>
               </Link>
             </Col>
           </RenderIf>
           <RenderIf isTrue={isOwner && !isPaired}>
             <Col lg={2}>
-              <Button variant="secondary" onClick={createPairings}>Create Pairings</Button>
+              <Button variant="secondary" onClick={createPairings} style={{marginTop:'10px'}}>Create Pairings</Button>
             </Col>
           </RenderIf>
         </Row>

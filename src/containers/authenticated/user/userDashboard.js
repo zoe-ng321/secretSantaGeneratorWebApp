@@ -14,10 +14,10 @@ const UserDashboard = () => {
         <h1>Dashboard</h1>
         <Row>
           <Col lg={2}>
-            <Link to="/createGroup"><Button variant="primary">Create new group</Button></Link>
+            <Link to="/createGroup"><Button variant="primary" style={{marginTop:'10px'}}>Create new group</Button></Link>
           </Col>
           <Col lg={2}>
-            <Link to="joinGroup"><Button variant="primary">Join group</Button></Link>
+            <Link to="joinGroup"><Button variant="primary" style={{marginTop:'10px'}}>Join group</Button></Link>
           </Col>
         </Row>
       </div>

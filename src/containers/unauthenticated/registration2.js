@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { Link, withRouter } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
+import Alert from 'react-bootstrap/Alert';
 
 const Registration2 = (props) => {
   const [email, setEmail] = useState('');
@@ -80,8 +81,7 @@ const Registration2 = (props) => {
               label="Email"
               placeholder="inputEmail@gmail.com"
               type="email"
-              className="rainbow-p-around_medium"
-              style={{marginTop: '10px'}}
+              className="rainbow-p-around_medium infoInput"
               value={email}
               onChange={(e) => {setEmail(e.target.value)}}
             />
@@ -89,8 +89,7 @@ const Registration2 = (props) => {
               label="Password"
               placeholder="**********"
               type="password"
-              className="rainbow-p-around_medium"
-              style={{marginTop: '10px'}}
+              className="rainbow-p-around_medium infoInput"
               value={password}
               onChange={(e) => {setPassword(e.target.value)}}
             />
@@ -99,7 +98,7 @@ const Registration2 = (props) => {
                 label="Back"
                 variant="brand"
                 className="rainbow-m-around_medium"
-                style={{marginTop: '20px', width: '225px'}}
+                style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
               />
             </Link>
             <Button
@@ -107,7 +106,7 @@ const Registration2 = (props) => {
               onClick={submit}
               variant="brand"
               className="rainbow-m-around_medium"
-              style={{marginTop: '20px', width: '225px', marginLeft:'10px'}}
+              style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
             />
           </Col>
           <Col lg={3}></Col>

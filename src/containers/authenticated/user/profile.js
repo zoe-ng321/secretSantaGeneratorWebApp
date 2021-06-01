@@ -30,10 +30,10 @@ import Container from 'react-bootstrap/Container';
         </Row>
         <Row>
           <Col lg={2}>
-            <Link to="/updateProfile"><Button variant="primary">Update Profile</Button></Link>
+            <Link to="/updateProfile"><Button variant="primary" style={{marginTop:'10px'}}>Update Profile</Button></Link>
           </Col>
           <Col lg={2}>
-            <Link to="/updatePassword"><Button variant="primary">Update Password</Button></Link>
+            <Link to="/updatePassword"><Button variant="primary" style={{marginTop:'10px'}}>Update Password</Button></Link>
           </Col>
         </Row>
       </div>

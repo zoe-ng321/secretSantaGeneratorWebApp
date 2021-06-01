@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { Input, Button, RenderIf } from 'react-rainbow-components';
+import Alert from 'react-bootstrap/Alert';
 import { Link, withRouter } from "react-router-dom";
 
 const Wishlist = (props) => {
@@ -17,7 +20,7 @@ const Wishlist = (props) => {
     console.log(request)
   }
 
-  return (
+  const v1 = (
     <Container fluid className="container">
       <h1>{isUpdate ? 'Update' : 'Create'} Wishlist</h1>
       <Form>
@@ -35,6 +38,49 @@ const Wishlist = (props) => {
         </Col>
       </Form>
     </Container>
+  )
+
+  const v2 = (
+    <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
+      <Container fluid className="container">
+        <h1>{isUpdate ? 'Update' : 'Create'} Wishlist</h1>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <Input
+              label="Wishlist"
+              placeholder="Wishlist"
+              type="text"
+              className="rainbow-p-around_medium infoInput"
+              value={wishlist}
+              onChange={e => {setWishlist(e.target.value)}}
+            />
+            <Link to={"/groupDashboard/" + groupId}>
+              <Button
+                label="Back"
+                variant="brand"
+                className="rainbow-m-around_medium"
+                style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
+              />
+            </Link>
+            <Button
+              label= {isUpdate ? 'Update Wishlist' : 'Create Wishlist'}
+              onClick={submitHandler}
+              variant="brand"
+              className="rainbow-m-around_medium"
+              style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
+            />
+          </Col>
+          <Col lg={3}></Col>
+        </Row>
+      </Container>
+    </div>
+  )
+
+  return (
+    <div>
+      {v2}
+    </div>
   );
 }
 

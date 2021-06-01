@@ -135,3 +135,7 @@ html{
 .aboutSection{
   width: 75%;
 }
+
+.infoInput{
+  margin-top: 10px;
+}
