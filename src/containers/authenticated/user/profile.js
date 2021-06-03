@@ -1,21 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-
+import axios from 'axios';
 
  const Profile = () => {
 
-  const userData = {
-    firstName: "Test",
-    lastName: "User",
-    email: "testUser@gmail.com",
-    address: "123 Main St.",
-  }
-
   const [user, setUser] = useState({})
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/user/find`, headers)
+      .then(res => {
+        console.log(res.data.data)
+        setUser(res.data.data)
+      })
+      .catch(error => console.log(error)
+    )
+  }, []);
 
   return (
     <Container fluid className="container">
@@ -23,9 +27,9 @@ import Container from 'react-bootstrap/Container';
         <h1>Profile</h1>
         <Row>
           <Col lg={6}>
-            <p>Name: {userData.firstName + ' ' + user.lastName}</p>
-            <p>Email: {userData.email}</p>
-            <p>Address: {userData.address}</p>
+            <p>Name: {user.firstName + ' ' + user.lastName}</p>
+            <p>Email: {user.email}</p>
+            <p>Address: {user.address}</p>
           </Col>
         </Row>
         <Row>

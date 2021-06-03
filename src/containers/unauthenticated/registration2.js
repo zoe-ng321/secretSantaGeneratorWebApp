@@ -4,11 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 import Alert from 'react-bootstrap/Alert';
+import axios from 'axios';
 
 const Registration2 = (props) => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,6 +19,13 @@ const Registration2 = (props) => {
   const submit = () => {
     const request = {...registration1, email: email, password: password}
     console.log(request)
+    axios.post(`${process.env.REACT_APP_API_URL}/api/user/registration`, { request })
+      .then(res => {
+        console.log(res)
+        history.push("/login");
+      })
+      .catch(error => console.log(error)
+    )
   }
 
   /*const v1 = (

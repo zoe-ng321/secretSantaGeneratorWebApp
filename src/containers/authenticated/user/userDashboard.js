@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,6 +7,11 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 const UserDashboard = () => {
+
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    
+  });
 
   return (
     <Container fluid className="container">

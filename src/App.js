@@ -1,7 +1,8 @@
 import {
   Route,
   BrowserRouter as Router,
-  Switch
+  Switch,
+  Redirect
 } from "react-router-dom";
 
 import './App.css';
@@ -27,12 +28,12 @@ import Wishlist from './containers/authenticated/wishlist/wishlist';
 function App() {
 
   const authGuard = (Component) => () => {
-    return <Component/>;
-    /*return localStorage.getItem("auth-token") ? (
+    //return <Component/>;
+    return localStorage.getItem("auth-token") ? (
       <Component />
     ) : (
       <Redirect to="/login" />
-    );*/
+    );
   };
 //{localStorage.getItem("auth-token") ? <UserDashboard/> : <Home/>}
   const isTestLogin = false;

@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 import Alert from 'react-bootstrap/Alert';
+import axios from 'axios';
 
 const Login = () => {
   const history = useHistory();
@@ -15,8 +16,15 @@ const Login = () => {
 
   const login = () => {
     const request = {email: email, password: password}
-    console.log(request)
-    history.push('/dashboard');
+    axios.post(`${process.env.REACT_APP_API_URL}/api/user/login`, { request })
+      .then(res => {
+        setTimeout(() => {
+          localStorage.setItem("auth-token", res.data.token);
+          history.push("/dashboard");
+        }, 3000);
+      })
+      .catch(error => console.log(error)
+    )
   }
 
   /*const v1 = (
