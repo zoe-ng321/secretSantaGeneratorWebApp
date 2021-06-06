@@ -12,16 +12,25 @@ const Wishlist = (props) => {
   var groupId = props.location.state.groupId;
 
   const [wishlist, setWishlist] = useState('')
-
+  const [showError, setShowError] = useState(false)
+  
   const submitHandler = () => {
-    const request = {groupId: groupId, wishlist: wishlist}
-    console.log(request)
+    if (wishlist === ''){
+      setShowError(true)
+    }else{
+      setShowError(false)
+      const request = {groupId: groupId, wishlist: wishlist}
+      console.log(request)
+    }
   }
 
   return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>{isUpdate ? 'Update' : 'Create'} Wishlist</h1>
+        <RenderIf isTrue={showError}>
+          <Alert variant="danger">Please enter your wishlist</Alert>
+        </RenderIf>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>

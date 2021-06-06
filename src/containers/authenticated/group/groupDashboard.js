@@ -44,7 +44,7 @@ const GroupDashboard = (props) => {
 
   let tableBody = groupMembers.map(member => {
     return(
-      <tr>
+      <tr key={member.name}>
         <td>{member.name}</td>
         <td>{member.address}</td>
         <td>{member.wishlist}</td>

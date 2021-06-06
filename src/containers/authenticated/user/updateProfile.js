@@ -13,44 +13,33 @@ const UpdateProfile = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [address, setAddress] = useState('')
+  const [showError, setShowError] = useState(false)
 
   const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
 
   const updateHandler = () => {
-    const request = {address: address, firstName: firstName, lastName: lastName}
-    axios.post(`${process.env.REACT_APP_API_URL}/api/user/updateProfile`, { request }, headers)
-      .then(res => {
-        console.log(res)
-        history.push("/profile");
-      })
-      .catch(error => console.log(error)
-    )
+    if (firstName === '' && lastName === '' && address === ''){
+      setShowError(true)
+    }else{
+      setShowError(false)
+      const request = {address: address, firstName: firstName, lastName: lastName}
+      axios.post(`${process.env.REACT_APP_API_URL}/api/user/updateProfile`, { request }, headers)
+        .then(res => {
+          console.log(res)
+          history.push("/profile");
+        })
+        .catch(error => console.log(error)
+      )
+    }
   }
 
-  /*const v1 = (
-    <Container fluid className="container">
-      <h1>Update Profile</h1>
-      <Form>
-        <Form.Group as={Col} md="6" controlId="formAddress">
-          <Form.Label>Address</Form.Label>
-          <Form.Control type="text" placeholder="Address" value={address} onChange={e => setAddress(e.target.value)}/>
-        </Form.Group>
-        <Col md="6">
-          <Button variant="primary" type="submit" onClick={updateHandler}>
-            Update
-          </Button>
-          <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-            <Link to={"/profile"}>Back</Link>
-          </Form.Text>
-        </Col>
-      </Form>
-    </Container>
-  )*/
-
-  const v2 = (
+  return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>Update Profile</h1>
+        <RenderIf isTrue={showError}>
+          <Alert variant="danger">Please enter valid information</Alert>
+        </RenderIf>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -97,12 +86,6 @@ const UpdateProfile = () => {
           <Col lg={3}></Col>
         </Row>
       </Container>
-    </div>
-  )
-
-  return (
-    <div>
-      {v2}
     </div>
   );
 }
