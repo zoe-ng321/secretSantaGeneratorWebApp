@@ -35,13 +35,11 @@ function App() {
       <Redirect to="/login" />
     );
   };
-//{localStorage.getItem("auth-token") ? <UserDashboard/> : <Home/>}
-  const isTestLogin = false;
 
   return (
     <div className="App">
       <Router>
-        <NavBar/>
+        <NavBar isLoggedIn={localStorage.getItem("auth-token")}/>
         <Switch>
           <Route path="/home">
             <Home />
@@ -68,7 +66,7 @@ function App() {
           <Route path="/wishlist" render={authGuard(Wishlist)}></Route>
           <Route path="/dashboard" render={authGuard(UserDashboard)}></Route>
           <Route exact path="/">
-            {isTestLogin ? <UserDashboard/> : <Home/>}
+            {localStorage.getItem("auth-token") ? <UserDashboard/> : <Home/>}
           </Route>
           <Route path="*">
             <NotFound />

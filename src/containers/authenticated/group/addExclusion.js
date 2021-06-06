@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
-//import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-
-import { Link, withRouter } from "react-router-dom";
-import { Select } from 'react-rainbow-components';
-import { DatePicker, Input, Button, RenderIf } from 'react-rainbow-components';
 import Alert from 'react-bootstrap/Alert';
+import { Link, withRouter } from "react-router-dom";
+import { Select, Button, RenderIf } from 'react-rainbow-components';
 
 const AddExclusion = (props) => {
 
@@ -42,42 +38,7 @@ const AddExclusion = (props) => {
     return person1 !== person2
   }
 
-  const v1 = (
-    <Container fluid className="container">
-      <h1>Add Exclusion</h1>
-      <Form>
-        <Form.Group as={Col} md="6" controlId="formPerson1">
-          <Select
-            label="Person 1"
-            options={options}
-            id="example-select-1"
-            style={containerStyles}
-            className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
-            value={person1}
-            onChange={e => setPerson1(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group as={Col} md="6" controlId="formPerson2">
-          <Form.Label>Person 2</Form.Label>
-          <Form.Control as="select" value={person2} onChange={e=>setPerson2(e.target.value)}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-          </Form.Control>
-        </Form.Group>
-        <Col md="6">
-          <Button variant="primary" type="submit" onClick={submitHandler}>
-            Submit
-          </Button>
-          <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-            <Link to={"/groupDashboard/" + groupId}>Back</Link>
-          </Form.Text>
-        </Col>
-      </Form>
-    </Container>
-  )
-
-  const v2 = (
+  return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>Add Exclusion</h1>
@@ -124,12 +85,6 @@ const AddExclusion = (props) => {
           <Col lg={3}></Col>
         </Row>
       </Container>
-    </div>
-  )
-
-  return (
-    <div>
-      {v2}
     </div>
   );
 

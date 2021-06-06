@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-//import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import { Link, useHistory } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
-import { Input, Button, RenderIf } from 'react-rainbow-components';
 import Alert from 'react-bootstrap/Alert';
+import { Link, useHistory } from "react-router-dom";
+import { Input, Button, RenderIf } from 'react-rainbow-components';
 import axios from 'axios';
 
 const UpdateProfile = () => {

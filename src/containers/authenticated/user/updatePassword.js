@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-//import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import { Link, useHistory } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
-import { Input, Button, RenderIf } from 'react-rainbow-components';
 import Alert from 'react-bootstrap/Alert';
+import { Link, useHistory } from "react-router-dom";
+import { Input, Button, RenderIf } from 'react-rainbow-components';
 import axios from 'axios';
 
 const UpdatePassword = (props) => {
@@ -38,31 +36,7 @@ const UpdatePassword = (props) => {
     return oldPassword !== '' && newPassword !== ''
   }
 
-  const v1 = (
-    <Container fluid className="container">
-      <h1>Update Password</h1>
-      <Form>
-        <Form.Group as={Col} md="6" controlId="formOldPassword">
-          <Form.Label>Old Password</Form.Label>
-          <Form.Control type="password" placeholder="Old Password" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
-        </Form.Group>
-        <Form.Group as={Col} md="6" controlId="formNewPassword">
-          <Form.Label>New Password</Form.Label>
-          <Form.Control type="password" placeholder="New Password" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
-        </Form.Group>
-        <Col md="6">
-          <Button variant="primary" type="submit" onClick={updateHandler}>
-            Update
-          </Button>
-          <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-            <Link to={"/profile"}>Back</Link>
-          </Form.Text>
-        </Col>
-      </Form>
-    </Container>
-  )
-
-  const v2 = (
+  return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>Update Password</h1>
@@ -107,12 +81,6 @@ const UpdatePassword = (props) => {
           <Col lg={3}></Col>
         </Row>
       </Container>
-    </div>
-  )
-
-  return (
-    <div>
-      {v2}
     </div>
   );
 
