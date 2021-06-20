@@ -4,19 +4,29 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import { Input, Button, RenderIf } from 'react-rainbow-components';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from 'axios';
 
 const JoinGroup = (props) => {
 
   const [groupId, setGroupId] = useState('')
   const [wishlist, setWishlist] = useState('')
   const [showError, setShowError] = useState(false)
+  const history = useHistory()
+
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
 
   const submitHandler = () => {
     if (validateRequest()){
       setShowError(false)
       const request = {groupId: groupId, wishlist: wishlist}
-      console.log(request)
+      axios.post(`${process.env.REACT_APP_API_URL}/api/group/joinGroup`, { request }, headers)
+        .then(res => {
+          console.log(res)
+          history.push("/dashboard");
+        })
+        .catch(error => console.log(error)
+      )
     }else{
       setShowError(true)
     }

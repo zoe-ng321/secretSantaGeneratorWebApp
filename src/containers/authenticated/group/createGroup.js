@@ -3,8 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { DatePicker, Input, Button, RenderIf } from 'react-rainbow-components';
+import axios from 'axios';
 
 const CreateGroup = (props) => {
 
@@ -12,14 +13,22 @@ const CreateGroup = (props) => {
   const [signupDeadline, setSignUpDeadline] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [showError, setShowError] = useState(false)
+  const history = useHistory();
 
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
   const now = new Date();
 
   const submitHandler = () => {
     if (validateRequest()){
       setShowError(false)
       const request = {name: groupName, signUpEndDate: signupDeadline, endDate: endDate}
-      console.log(request)
+      axios.post(`${process.env.REACT_APP_API_URL}/api/group/createGroup`, { request }, headers)
+        .then(res => {
+          console.log(res)
+          history.push("/dashboard");
+        })
+        .catch(error => console.log(error)
+      )
     } else{
       setShowError(true);
       console.log("error")

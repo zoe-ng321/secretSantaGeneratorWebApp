@@ -7,7 +7,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { Input, Button } from 'react-rainbow-components';
 import axios from 'axios';
 
-const Login = () => {
+const Login = (props) => {
   const history = useHistory();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,6 +18,7 @@ const Login = () => {
       .then(res => {
         setTimeout(() => {
           localStorage.setItem("auth-token", res.data.token);
+          props.setLoggedIn(true)
           history.push("/dashboard");
         }, 3000);
       })

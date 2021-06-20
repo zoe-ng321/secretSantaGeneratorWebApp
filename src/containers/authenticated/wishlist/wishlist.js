@@ -4,7 +4,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import { Input, Button, RenderIf } from 'react-rainbow-components';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
+import axios from 'axios';
 
 const Wishlist = (props) => {
 
@@ -13,14 +14,22 @@ const Wishlist = (props) => {
 
   const [wishlist, setWishlist] = useState('')
   const [showError, setShowError] = useState(false)
-  
+  const history = useHistory();
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
+
   const submitHandler = () => {
     if (wishlist === ''){
       setShowError(true)
     }else{
       setShowError(false)
       const request = {groupId: groupId, wishlist: wishlist}
-      console.log(request)
+      axios.post(`${process.env.REACT_APP_API_URL}/api/wishlist/update`, { request }, headers)
+        .then(res => {
+          console.log(res)
+          history.push("/groupDashboard/" + groupId);
+        })
+        .catch(error => console.log(error)
+      )
     }
   }
 

@@ -4,7 +4,7 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-
+import React, {useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/navbar';
@@ -27,10 +27,11 @@ import Wishlist from './containers/authenticated/wishlist/wishlist';
 
 function App() {
 
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("auth-token"));
+
   const authGuard = (Component) => () => {
-    //return <Component/>;
     return localStorage.getItem("auth-token") ? (
-      <Component />
+      <Component/>
     ) : (
       <Redirect to="/login" />
     );
@@ -39,13 +40,13 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <NavBar isLoggedIn={localStorage.getItem("auth-token")}/>
+        <NavBar isLoggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
         <Switch>
           <Route path="/home">
             <Home />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login setLoggedIn={setLoggedIn}/>
           </Route>
           <Route path="/register">
             <Registration />
