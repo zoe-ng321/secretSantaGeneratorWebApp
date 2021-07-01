@@ -9,6 +9,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
+import ScrollToTop from './components/scrollToTop';
 import NotFound from './containers/notFound';
 import Home from './containers/unauthenticated/home';
 import Login from './containers/unauthenticated/login';
@@ -41,6 +42,7 @@ function App() {
     <div className="App">
       <Router>
         <NavBar isLoggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        <ScrollToTop />
         <Switch>
           <Route path="/home">
             <Home />
