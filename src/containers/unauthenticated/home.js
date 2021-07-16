@@ -16,7 +16,7 @@ const Home = () => {
     <Row style={{marginLeft: '30px'}}>
       <Col lg={4}>
         <Card className="cardStep">
-          <img height= '200px' src = {step1} alt= "text"/>
+          <img height= '200px' src = {step1} alt= "Create a group"/>
           <div style={{marginTop:'15px'}}>
             <h4>Step 1</h4>
             <p>Create a group for your friends to join!</p>
@@ -25,7 +25,7 @@ const Home = () => {
       </Col>
       <Col lg={4}>
         <Card className="cardStep">
-          <img height= '200px' src = {step2} alt= "text"/>
+          <img height= '200px' src = {step2} alt= "Discover your Secret Santa pairing"/>
           <div style={{marginTop:'15px'}}>
             <h4>Step 2</h4>
             <p>Buy a present for your Secret Santa - we'll generate the pairs for you!</p>
@@ -34,7 +34,7 @@ const Home = () => {
       </Col>
       <Col lg={4}>
         <Card className="cardStep">
-          <img height= '200px' src = {step3} alt= "text"/>
+          <img height= '200px' src = {step3} alt= "Exchange gifts"/>
           <div style={{marginTop:'15px'}}>
             <h4>Step 3</h4>
             <p>Exchange gifts with your friends!</p>
@@ -49,8 +49,8 @@ const Home = () => {
       <div>
         <Row className="hero">
           <Col className="title" lg={6}> Easily organize a Secret Santa gift exchange with your friends! </Col>
-          <Col lg={6}><img className="heroimg" height= '500px' src = {hero} alt= "text"/></Col>
-          <Col lg={6}><img className="heroimg2" height= '500px' src = {hero2} alt= "text"/></Col>
+          <Col lg={6}><img className="heroimg" height= '500px' src = {hero} alt= "present"/></Col>
+          <Col lg={6}><img className="heroimg2" height= '500px' src = {hero2} alt= "present"/></Col>
         </Row>
         <Container className="steps">
           {cards}
