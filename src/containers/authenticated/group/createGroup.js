@@ -22,7 +22,7 @@ const CreateGroup = (props) => {
     if (validateRequest()){
       setShowError(false)
       const request = {name: groupName, signUpEndDate: signupDeadline, endDate: endDate}
-      axios.post(`${process.env.REACT_APP_API_URL}/api/group/createGroup`, { request }, headers)
+      axios.post(`${process.env.REACT_APP_API_URL}/api/group/create`, { request }, headers)
         .then(res => {
           console.log(res)
           history.push("/dashboard");

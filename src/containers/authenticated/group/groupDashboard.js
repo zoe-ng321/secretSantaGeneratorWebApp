@@ -15,7 +15,7 @@ const GroupDashboard = (props) => {
   const [user, setUser] = useState({})
   const [group, setGroup] = useState({})
   const [tableInfo, setTableInfo] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [isOwner, setIsOwner] = useState(false)
   const [isPaired, setIsPaired] = useState(false)
   const [pairing, setPairing] = useState('')
@@ -27,7 +27,6 @@ const GroupDashboard = (props) => {
     const request = {groupId: groupId};
     axios.post(`${process.env.REACT_APP_API_URL}/api/group/generatePairings`, { request }, headers)
       .then(res => {
-        console.log(res)
         handleOnClose()
         history.push("/groupDashboard/" + groupId);
       })
@@ -45,7 +44,7 @@ const GroupDashboard = (props) => {
             setGroup(res1.data.data)
             axios.get(`${process.env.REACT_APP_API_URL}/api/user/find`, headers)
               .then(res2 => {
-                console.log(res1.data.data)
+                //console.log(res1.data.data)
                 setIsPaired(res1.data.data.isAssigned)
                 setIsOwner(res2.data.data._id.toString() === res1.data.data.creatorId.toString())
                 setUser(res2.data.data)
@@ -103,6 +102,7 @@ const GroupDashboard = (props) => {
               <Button variant="brand" style={{marginTop:'10px', marginLeft: '80px'}} onClick={createPairings}>Generate Pairings</Button>
             </Row>
           </Modal>
+          <RenderIf isTrue={!isPaired}><h6>Group Id: {groupId}</h6></RenderIf>
           <Row>
             <Col lg={2}>
               <Link to={{
