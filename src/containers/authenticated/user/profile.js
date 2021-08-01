@@ -16,7 +16,6 @@ import axios from 'axios';
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/user/find`, headers)
       .then(res => {
-        console.log(res.data.data)
         setUser(res.data.data)
         setIsLoading(false)
       })

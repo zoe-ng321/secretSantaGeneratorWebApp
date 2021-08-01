@@ -4,32 +4,46 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
 import { Link, withRouter, useHistory } from "react-router-dom";
-import { Input, Button } from 'react-rainbow-components';
+import { Input, Button, RenderIf } from 'react-rainbow-components';
 import axios from 'axios';
 
 const Registration2 = (props) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false);
 
   const registration1 = props.location.state;
+  const emailRegex = /\S+@\S+\.\S+/;
 
   const submit = () => {
-    const request = {...registration1, email: email, password: password}
-    console.log(request)
-    axios.post(`${process.env.REACT_APP_API_URL}/api/user/registration`, { request })
-      .then(res => {
-        console.log(res)
-        history.push("/login");
-      })
-      .catch(error => console.log(error)
-    )
+    if (validateRequest()){
+      setShowError(false);
+      const request = {...registration1, email: email, password: password}
+      console.log(request)
+      axios.post(`${process.env.REACT_APP_API_URL}/api/user/registration`, { request })
+        .then(res => {
+          console.log(res)
+          history.push("/login");
+        })
+        .catch(error => console.log(error)
+      )
+    }else{
+      setShowError(true);
+    }
+  }
+
+  const validateRequest = () => {
+     return emailRegex.test(email) && password.length > 8 && registration1.firstName != '' && registration1.lastName != '';
   }
 
   return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>Registration</h1>
+        <RenderIf isTrue={showError}>
+          <Alert variant="danger">Please enter valid information</Alert>
+        </RenderIf>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>

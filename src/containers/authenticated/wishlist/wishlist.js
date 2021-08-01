@@ -25,7 +25,6 @@ const Wishlist = (props) => {
       const request = {groupId: groupId, wishlist: wishlist}
       axios.post(`${process.env.REACT_APP_API_URL}/api/wishlist/update`, { request }, headers)
         .then(res => {
-          console.log(res)
           history.push("/groupDashboard/" + groupId);
         })
         .catch(error => console.log(error)

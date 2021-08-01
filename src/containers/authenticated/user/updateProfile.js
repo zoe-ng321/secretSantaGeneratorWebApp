@@ -25,7 +25,6 @@ const UpdateProfile = () => {
       const request = {address: address, firstName: firstName, lastName: lastName}
       axios.post(`${process.env.REACT_APP_API_URL}/api/user/updateProfile`, { request }, headers)
         .then(res => {
-          console.log(res)
           history.push("/profile");
         })
         .catch(error => console.log(error)

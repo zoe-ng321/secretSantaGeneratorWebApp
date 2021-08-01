@@ -24,14 +24,12 @@ const CreateGroup = (props) => {
       const request = {name: groupName, signUpEndDate: signupDeadline, endDate: endDate}
       axios.post(`${process.env.REACT_APP_API_URL}/api/group/create`, { request }, headers)
         .then(res => {
-          console.log(res)
           history.push("/dashboard");
         })
         .catch(error => console.log(error)
       )
     } else{
       setShowError(true);
-      console.log("error")
     }
   }
 

@@ -22,7 +22,6 @@ const JoinGroup = (props) => {
       const request = {groupId: groupId, wishlist: wishlist}
       axios.post(`${process.env.REACT_APP_API_URL}/api/group/join`, { request }, headers)
         .then(res => {
-          console.log(res)
           history.push("/dashboard");
         })
         .catch(error => console.log(error)

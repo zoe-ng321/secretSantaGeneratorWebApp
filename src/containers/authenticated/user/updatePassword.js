@@ -22,7 +22,6 @@ const UpdatePassword = (props) => {
       const request = {oldPassword: oldPassword, newPassword: newPassword}
       axios.post(`${process.env.REACT_APP_API_URL}/api/user/updatePassword`, { request }, headers)
         .then(res => {
-          console.log(res)
           history.push("/profile");
         })
         .catch(error => console.log(error)

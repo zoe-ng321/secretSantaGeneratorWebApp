@@ -39,7 +39,6 @@ const AddExclusion = (props) => {
     const options = members.map(member => {
       return {value: member.id, label: member.name}
     })
-    console.log(options)
     setGroupMembers(options)
   }
 
@@ -49,11 +48,11 @@ const AddExclusion = (props) => {
       const request = {groupId: groupId, id1: person1, id2: person2}
       axios.post(`${process.env.REACT_APP_API_URL}/api/group/addExclusion`, { request }, headers)
         .then(res => {
-          console.log(res)
           history.push("/groupDashboard/" + groupId);
         })
         .catch(error => console.log(error)
-      )    } else {
+      )
+    } else {
       setShowError(true)
     }
   }
