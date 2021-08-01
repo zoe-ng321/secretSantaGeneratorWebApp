@@ -1,46 +1,76 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import { Link } from "react-router-dom";
+import Row from 'react-bootstrap/Row';
+import Alert from 'react-bootstrap/Alert';
+import { Input, Button, RenderIf } from 'react-rainbow-components';
+import { Link, withRouter, useHistory } from "react-router-dom";
+import axios from 'axios';
 
-class Wishlist extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      value: "text"
+const Wishlist = (props) => {
+
+  var isUpdate = true;
+  var groupId = props.location.state.groupId;
+
+  const [wishlist, setWishlist] = useState('')
+  const [showError, setShowError] = useState(false)
+  const history = useHistory();
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
+
+  const submitHandler = () => {
+    if (wishlist === ''){
+      setShowError(true)
+    }else{
+      setShowError(false)
+      const request = {groupId: groupId, wishlist: wishlist}
+      axios.post(`${process.env.REACT_APP_API_URL}/api/wishlist/update`, { request }, headers)
+        .then(res => {
+          history.push("/groupDashboard/" + groupId);
+        })
+        .catch(error => console.log(error)
+      )
     }
   }
 
-  render(){
-    var isUpdate = this.props.isUpdate;
-    var groupId = this.props.groupId;
-
-    return (
+  return (
+    <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>{isUpdate ? 'Update' : 'Create'} Wishlist</h1>
-        <Form>
-          <Form.Group as={Col} md="6" controlId="formEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Email"/>
-          </Form.Group>
-          <Form.Group as={Col} md="6" controlId="formPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password"/>
-          </Form.Group>
-          <Col md="6">
-            <Button variant="primary" type="submit">
-              {isUpdate ? 'Update' : 'Create'} Wishlist
-            </Button>
-            <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-              <Link to="/group">Back</Link>
-            </Form.Text>
+        <RenderIf isTrue={showError}>
+          <Alert variant="danger">Please enter your wishlist</Alert>
+        </RenderIf>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <Input
+              label="Wishlist"
+              placeholder="Wishlist"
+              type="text"
+              className="rainbow-p-around_medium infoInput"
+              value={wishlist}
+              onChange={e => {setWishlist(e.target.value)}}
+            />
+            <Link to={"/groupDashboard/" + groupId}>
+              <Button
+                label="Back"
+                variant="brand"
+                className="rainbow-m-around_medium"
+                style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
+              />
+            </Link>
+            <Button
+              label= {isUpdate ? 'Update Wishlist' : 'Create Wishlist'}
+              onClick={submitHandler}
+              variant="brand"
+              className="rainbow-m-around_medium"
+              style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
+            />
           </Col>
-        </Form>
+          <Col lg={3}></Col>
+        </Row>
       </Container>
-    );
-  }
+    </div>
+  );
 }
 
-export default Wishlist;
+export default withRouter(Wishlist);

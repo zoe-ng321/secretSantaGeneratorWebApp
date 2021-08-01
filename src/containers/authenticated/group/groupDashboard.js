@@ -1,72 +1,161 @@
-import React from 'react';
-import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
+import { RenderIf, Button, Modal } from 'react-rainbow-components';
+import Loading from '../../../components/loading';
+import axios from 'axios';
+const GroupDashboard = (props) => {
 
+  let { groupId } = useParams();
 
-function GroupDashboard() {
+  const history = useHistory();
+  const [user, setUser] = useState({})
+  const [group, setGroup] = useState({})
+  const [tableInfo, setTableInfo] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isOwner, setIsOwner] = useState(false)
+  const [isPaired, setIsPaired] = useState(false)
+  const [pairing, setPairing] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
 
-  var isOwner = true;
-  var isPaired = false;
-  var name = "Test";
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
+
+  const createPairings = () => {
+    const request = {groupId: groupId};
+    axios.post(`${process.env.REACT_APP_API_URL}/api/group/generatePairings`, { request }, headers)
+      .then(res => {
+        handleOnClose()
+        history.push("/groupDashboard/" + groupId);
+      })
+      .catch(error => console.log(error)
+    )
+  }
+
+  useEffect(() => {
+    const request = {groupId: groupId}
+    axios.post(`${process.env.REACT_APP_API_URL}/api/group/groupDashboard`, { request }, headers)
+      .then(res => {
+        setTableInfo(res.data.data)
+        axios.post(`${process.env.REACT_APP_API_URL}/api/group/find`, { request }, headers)
+          .then(res1 => {
+            setGroup(res1.data.data)
+            axios.get(`${process.env.REACT_APP_API_URL}/api/user/find`, headers)
+              .then(res2 => {
+                //console.log(res1.data.data)
+                setIsPaired(res1.data.data.isAssigned)
+                setIsOwner(res2.data.data._id.toString() === res1.data.data.creatorId.toString())
+                setUser(res2.data.data)
+                setIsLoading(false)
+                getPairing(res1.data.data, res2.data.data._id)
+              })
+              .catch(error => console.log(error)
+            )
+          })
+          .catch(error => console.log(error)
+        )
+      })
+      .catch(error => console.log(error)
+    )
+  }, []);
+
+  const getPairing = (data, id) => {
+    if (data.isAssigned){
+      for (let i = 0; i < data.pairings.length; i++){
+        if (data.pairings[i].gifter.id.toString() === id.toString()){
+          setPairing(data.pairings[i].giftee.name)
+        }
+      }
+    }
+  }
+
+  const handleOnClick = () => {
+    return setIsOpen(true);
+  }
+
+  const handleOnClose = () => {
+    return setIsOpen(false);
+  }
+
+  let tableBody = tableInfo.map(member => {
+    return(
+      <tr key={member.name}>
+        <td>{member.name}</td>
+        <td>{member.address}</td>
+        <td>{member.wishlist}</td>
+      </tr>
+    )
+  })
 
   return (
     <Container fluid className="container">
-      <div style={{ direction: 'flex', flexDirection:'row'}}>
-        <h1>Group Dashboard</h1>
-        <div>
-          <div>
-            <Button variant="primary">Update Wishlist</Button>
-          </div>
-          {(isOwner && !isPaired) ?
+      <RenderIf isTrue={!isLoading}>
+        <div style={{marginTop: '10px', marginBottom: '15px'}}>
+          <h1>Group Dashboard</h1>
+          <Modal id="modal-1" isOpen={isOpen} onRequestClose={handleOnClose}>
+            <p>Are you sure you want to generate pairings? <br/>
+            Once this has been done, no participants can join the group.</p>
+            <Row>
+              <Button variant="destructive" style={{marginTop:'10px', marginLeft: '80px'}} onClick={handleOnClose}>Cancel</Button>
+              <Button variant="brand" style={{marginTop:'10px', marginLeft: '80px'}} onClick={createPairings}>Generate Pairings</Button>
+            </Row>
+          </Modal>
+          <RenderIf isTrue={!isPaired}><h6>Group Id: {groupId}</h6></RenderIf>
+          <Row>
+            <Col lg={2}>
+              <Link to={{
+                pathname: "/wishlist",
+                state: {
+                  groupId: groupId
+                }
+              }}>
+                <Button variant="brand" style={{marginTop:'10px'}}>Update Wishlist</Button>
+              </Link>
+            </Col>
+            <RenderIf isTrue={!isPaired}>
+              <Col lg={2}>
+                <Link to={{
+                  pathname: "/addExclusion",
+                  state: {
+                    groupId: groupId,
+                  }
+                }}>
+                  <Button variant="brand" style={{marginTop:'10px'}}>Add Exclusion</Button>
+                </Link>
+              </Col>
+            </RenderIf>
+            <RenderIf isTrue={isOwner && !isPaired}>
+              <Col lg={2}>
+                <Button variant="outline-brand" onClick={handleOnClick} style={{marginTop:'10px'}}>Create Pairings</Button>
+              </Col>
+            </RenderIf>
+          </Row>
+          <RenderIf isTrue={isPaired}>
             <div style={{marginTop: '20px', marginBottom: '20px'}}>
-              <Button variant="primary">Create Pairings</Button>
-            </div> : ''
-          }
-          {!isPaired ?
-            <div style={{marginTop: '20px', marginBottom: '20px'}}>
-              <Button variant="primary">Add Exclusion</Button>
-            </div> : ''}
+              <h4>You are the Secret Santa for {pairing}!</h4>
+            </div>
+          </RenderIf>
         </div>
-        {isPaired ?
-          <div style={{marginTop: '20px', marginBottom: '20px'}}>
-            <h4>You are the Secret Santa for {name}!</h4>
-          </div> : ''}
-
-      </div>
-      <div>
-        <Table responsive="lg">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Wishlist</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Test</td>
-              <td>123 Test St</td>
-              <td>Food</td>
-            </tr>
-            <tr>
-              <td>Test1</td>
-              <td>321 Test St</td>
-              <td>Gift card</td>
-            </tr>
-            <tr>
-              <td>Test2</td>
-              <td>100 Test St</td>
-              <td>Clothes</td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
+        <div>
+          <Table responsive="lg">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Wishlist</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tableBody}
+            </tbody>
+          </Table>
+        </div>
+      </RenderIf>
+      <RenderIf isTrue={isLoading}>
+        <Loading/>
+      </RenderIf>
     </Container>
   );
 }

@@ -1,59 +1,49 @@
-import React from 'react';
-//import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Link } from "react-router-dom";
-import { Input, Button } from 'react-rainbow-components';
+import Alert from 'react-bootstrap/Alert';
+import { Link, withRouter, useHistory } from "react-router-dom";
+import { Input, Button, RenderIf } from 'react-rainbow-components';
+import axios from 'axios';
 
-function Registration2() {
-  const v1 = (
-    <Container fluid className="container">
-      <h1>Registration</h1>
-      <Form>
-        <Col style={{marginBottom: '20px', marginTop: '15px'}}>
-          <Form.Text style={{fontSize: '16px'}}>
-            Already have an account? <Link to="/login">Login now!</Link>
-          </Form.Text>
-        </Col>
-        <Col>
-          <Row>
-            <Form.Group as={Col} md="4" controlId="formFirstName">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control type="firstName" placeholder="First Name"/>
-            </Form.Group>
-            <Form.Group as={Col} md="4" controlId="formLastName">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control type="lastName" placeholder="Last Name"/>
-            </Form.Group>
-          </Row>
-        </Col>
-        <Form.Group as={Col} md="6" controlId="formAddress">
-          <Form.Label>Address</Form.Label>
-          <Form.Control type="address" placeholder="123 Main St. City, State 78701"/>
-        </Form.Group>
-        <Form.Group as={Col} md="6" controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Email"/>
-        </Form.Group>
-        <Form.Group as={Col} md="6" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password"/>
-        </Form.Group>
-        <Col md="6">
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
-        </Col>
-      </Form>
-    </Container>
-  );
+const Registration2 = (props) => {
+  const history = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false);
 
-  const v2 = (
+  const registration1 = props.location.state;
+  const emailRegex = /\S+@\S+\.\S+/;
+
+  const submit = () => {
+    if (validateRequest()){
+      setShowError(false);
+      const request = {...registration1, email: email, password: password}
+      console.log(request)
+      axios.post(`${process.env.REACT_APP_API_URL}/api/user/registration`, { request })
+        .then(res => {
+          console.log(res)
+          history.push("/login");
+        })
+        .catch(error => console.log(error)
+      )
+    }else{
+      setShowError(true);
+    }
+  }
+
+  const validateRequest = () => {
+     return emailRegex.test(email) && password.length > 8 && registration1.firstName != '' && registration1.lastName != '';
+  }
+
+  return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>Registration</h1>
+        <RenderIf isTrue={showError}>
+          <Alert variant="danger">Please enter valid information</Alert>
+        </RenderIf>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -70,30 +60,32 @@ function Registration2() {
               label="Email"
               placeholder="inputEmail@gmail.com"
               type="email"
-              className="rainbow-p-around_medium"
-              style={{marginTop: '10px'}}
+              className="rainbow-p-around_medium infoInput"
+              value={email}
+              onChange={(e) => {setEmail(e.target.value)}}
             />
             <Input
               label="Password"
               placeholder="**********"
               type="password"
-              className="rainbow-p-around_medium"
-              style={{marginTop: '10px'}}
+              className="rainbow-p-around_medium infoInput"
+              value={password}
+              onChange={(e) => {setPassword(e.target.value)}}
             />
-            <Link to="/register">
+            <Link to= "/register">
               <Button
                 label="Back"
                 variant="brand"
                 className="rainbow-m-around_medium"
-                style={{marginTop: '20px', width: '225px'}}
+                style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
               />
             </Link>
             <Button
               label="Register"
-              onClick={() => alert('clicked!')}
+              onClick={submit}
               variant="brand"
               className="rainbow-m-around_medium"
-              style={{marginTop: '20px', width: '225px', marginLeft:'10px'}}
+              style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
             />
           </Col>
           <Col lg={3}></Col>
@@ -101,12 +93,6 @@ function Registration2() {
       </Container>
     </div>
   );
-
-  return (
-    <div>
-      {v2}
-    </div>
-  );
 }
 
-export default Registration2;
+export default withRouter(Registration2);

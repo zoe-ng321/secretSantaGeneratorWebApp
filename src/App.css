@@ -14,7 +14,7 @@ html{
 }
 
 .hero {
-  background-color: rgb(240,240,240);
+  background-color: #f0f0f0;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -24,6 +24,10 @@ html{
   color: black;
   padding: 0px 60px;
   margin-top: -20px;
+}
+
+.heroimg2{
+  display: none;
 }
 
 @media (max-width: 992px) {
@@ -36,12 +40,13 @@ html{
   .hero div:nth-child(1) {
     padding-bottom: 30px;
   }
-  .footerSection {
-    margin-left: 20px;
+  .steps{
+    align-items: center;
+    margin-bottom: 40px;
   }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 575px) {
   .hero {
     padding-top: 30px;
     margin-top: 0px;
@@ -51,11 +56,20 @@ html{
   .hero div:nth-child(1) {
     padding-bottom: 30px;
   }
-  .hero img{
+  .heroimg{
     width: 250px;
+    display: none;
+  }
+  .heroimg2{
+    display: block;
+    width: 250px;
+    padding-left: 0;
   }
   .formField{
     width: 100% !important;
+  }
+  .aboutSection{
+    width: 90%;
   }
 }
 
@@ -84,13 +98,31 @@ html{
 }
 
 .steps{
-  margin-top: 20px;
-  min-height: 90vh;
+  margin-top: 40px;
+  min-height: 55vh;
+  margin-bottom: 20px;
 }
 
 .step{
   margin-top: 20px;
   font-size: 28px;
+}
+
+.cardStep{
+  width: 18rem;
+  height: 22rem;
+  margin-top: 15px;
+  padding: 15px;
+  text-align: center;
+}
+
+.getStarted{
+  background-color: aliceblue;
+  min-height: 50vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
 }
 
 .navbar{
@@ -99,7 +131,6 @@ html{
 }
 
 .footer {
-  margin-top: 10px;
 	display: flex;
 	align-items: center;
   background: slategray;
@@ -117,10 +148,25 @@ html{
 }
 
 .footerRow{
-  margin-left: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-right: 1rem;
   width: 100%;
   font-size: 16px;
+  margin: 20px;
+}
+
+.footerItem{
+  color: white;
+  margin-top: 10px;
+}
+
+.groupCard{
+   width: 18rem;
+   margin-top: 15px;
+}
+
+.aboutSection{
+  width: 75%;
+}
+
+.infoInput{
+  margin-top: 10px;
 }

@@ -1,8 +1,8 @@
 
-function NotFound() {
+const NotFound = () => {
 
   return (
-    <div class="container">
+    <div className="container">
       <h1>
         Page Not Found
       </h1>

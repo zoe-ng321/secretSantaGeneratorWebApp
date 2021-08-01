@@ -1,55 +1,102 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import { Link } from "react-router-dom";
-import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
+import Row from 'react-bootstrap/Row';
+import Alert from 'react-bootstrap/Alert';
+import { Link, useHistory } from "react-router-dom";
+import { DatePicker, Input, Button, RenderIf } from 'react-rainbow-components';
+import axios from 'axios';
 
-class CreateGroup extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      date: moment(),
-      focused: false
+const CreateGroup = (props) => {
+
+  const [groupName, setGroupName] = useState('')
+  const [signupDeadline, setSignUpDeadline] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [showError, setShowError] = useState(false)
+  const history = useHistory();
+
+  const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
+  const now = new Date();
+
+  const submitHandler = () => {
+    if (validateRequest()){
+      setShowError(false)
+      const request = {name: groupName, signUpEndDate: signupDeadline, endDate: endDate}
+      axios.post(`${process.env.REACT_APP_API_URL}/api/group/create`, { request }, headers)
+        .then(res => {
+          history.push("/dashboard");
+        })
+        .catch(error => console.log(error)
+      )
+    } else{
+      setShowError(true);
     }
   }
 
-  render(){
-    return (
+  const validateRequest = () => {
+    if (signupDeadline <= now || endDate <= now || signupDeadline >= endDate){
+      return false
+    }
+    return true;
+  }
+
+  return (
+    <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
         <h1>Create Group</h1>
-        <Form>
-          <Form.Group as={Col} md="6" controlId="formGroupName">
-            <Form.Label>Group Name</Form.Label>
-            <Form.Control type="groupName" placeholder="Group Name"/>
-          </Form.Group>
-          <Form.Group as={Col} md="6" controlId="formDate1">
-            <Form.Label>Date1</Form.Label>
-            <SingleDatePicker
-              date={this.state.date}
-              onDateChange={date => this.setState({ date })}
-              focused={this.state.focused}
-              onFocusChange={({ focused }) => this.setState({ focused })}
-              id="date1"
-              numberOfMonths={1}
+        <RenderIf isTrue={showError}>
+          <Alert variant="danger">Please enter valid information</Alert>
+        </RenderIf>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <Input
+              label="Group Name"
+              placeholder="Group Name"
+              type="text"
+              className="rainbow-p-around_medium infoInput"
+              style={{marginTop: '10px'}}
+              value={groupName}
+              onChange={e => {setGroupName(e.target.value)}}
             />
-          </Form.Group>
-          <Col md="6">
-            <Button variant="primary" type="submit">
-              Create Group
-            </Button>
-            <Form.Text style={{fontSize: '16px', marginTop:'20px'}}>
-              Don't have an account? <Link to="/register">Register now!</Link>
-            </Form.Text>
+            <DatePicker
+                id="datePicker-1"
+                value={signupDeadline}
+                onChange={value => setSignUpDeadline(value)}
+                label="Signup Deadline"
+                formatStyle="large"
+                className="infoInput"
+            />
+            <DatePicker
+                id="datePicker-1"
+                value={endDate}
+                onChange={value => setEndDate(value)}
+                label="End Date"
+                formatStyle="large"
+                className="infoInput"
+            />
+            <Link to= "/dashboard">
+              <Button
+                label="Back"
+                variant="brand"
+                className="rainbow-m-around_medium"
+                style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
+              />
+            </Link>
+            <Button
+              label="Create Group"
+              onClick={submitHandler}
+              variant="brand"
+              className="rainbow-m-around_medium"
+              style={{marginTop: '20px', width: '225px', marginLeft:'10px', marginRight:'10px'}}
+            />
           </Col>
-        </Form>
+          <Col lg={3}></Col>
+        </Row>
       </Container>
-    );
-  }
+    </div>
+  );
 }
+
 
 export default CreateGroup;

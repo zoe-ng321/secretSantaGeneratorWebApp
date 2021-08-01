@@ -7,38 +7,35 @@ import { Link, useHistory } from "react-router-dom";
 import { Input, Button, RenderIf } from 'react-rainbow-components';
 import axios from 'axios';
 
-const UpdatePassword = (props) => {
+const UpdateProfile = () => {
 
   const history = useHistory();
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [address, setAddress] = useState('')
   const [showError, setShowError] = useState(false)
 
   const headers = { headers: { 'auth-token': localStorage.getItem("auth-token") } };
 
   const updateHandler = () => {
-    if (validateRequest()){
+    if (firstName === '' && lastName === '' && address === ''){
+      setShowError(true)
+    }else{
       setShowError(false)
-      const request = {oldPassword: oldPassword, newPassword: newPassword}
-      axios.post(`${process.env.REACT_APP_API_URL}/api/user/updatePassword`, { request }, headers)
+      const request = {address: address, firstName: firstName, lastName: lastName}
+      axios.post(`${process.env.REACT_APP_API_URL}/api/user/updateProfile`, { request }, headers)
         .then(res => {
           history.push("/profile");
         })
         .catch(error => console.log(error)
       )
-    }else{
-      setShowError(true)
     }
-  }
-
-  const validateRequest = () => {
-    return oldPassword !== '' && newPassword !== ''
   }
 
   return (
     <div style ={{textAlign:'center', alignItems: 'center', display: 'flex'}}>
       <Container fluid className="container">
-        <h1>Update Password</h1>
+        <h1>Update Profile</h1>
         <RenderIf isTrue={showError}>
           <Alert variant="danger">Please enter valid information</Alert>
         </RenderIf>
@@ -46,20 +43,28 @@ const UpdatePassword = (props) => {
           <Col lg={3}></Col>
           <Col lg={6}>
             <Input
-              label="Old Password"
-              placeholder="**********"
-              type="password"
+              label="First Name"
+              placeholder="First Name"
+              type="text"
               className="rainbow-p-around_medium infoInput"
-              value={oldPassword}
-              onChange={e => {setOldPassword(e.target.value)}}
+              value={firstName}
+              onChange={e => {setFirstName(e.target.value)}}
             />
             <Input
-              label="New Password"
-              placeholder="**********"
-              type="password"
+              label="Last Name"
+              placeholder="Last Name"
+              type="text"
               className="rainbow-p-around_medium infoInput"
-              value={newPassword}
-              onChange={e => {setNewPassword(e.target.value)}}
+              value={lastName}
+              onChange={e => {setLastName(e.target.value)}}
+            />
+            <Input
+              label="Address"
+              placeholder="Address"
+              type="text"
+              className="rainbow-p-around_medium infoInput"
+              value={address}
+              onChange={e => {setAddress(e.target.value)}}
             />
             <Link to= "/profile">
               <Button
@@ -82,7 +87,7 @@ const UpdatePassword = (props) => {
       </Container>
     </div>
   );
-
 }
 
-export default UpdatePassword;
+
+export default UpdateProfile;

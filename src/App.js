@@ -4,44 +4,51 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-
+import React, {useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
+import ScrollToTop from './components/scrollToTop';
 import NotFound from './containers/notFound';
 import Home from './containers/unauthenticated/home';
 import Login from './containers/unauthenticated/login';
+import About from './containers/unauthenticated/about';
 import Registration from './containers/unauthenticated/registration';
 import Registration2 from './containers/unauthenticated/registration2';
 import UserDashboard from './containers/authenticated/user/userDashboard';
 import UpdatePassword from './containers/authenticated/user/updatePassword';
+import UpdateProfile from './containers/authenticated/user/updateProfile';
+import Profile from './containers/authenticated/user/profile';
 import GroupDashboard from './containers/authenticated/group/groupDashboard';
 import CreateGroup from './containers/authenticated/group/createGroup';
+import JoinGroup from './containers/authenticated/group/joinGroup';
+import AddExclusion from './containers/authenticated/group/addExclusion';
+import Wishlist from './containers/authenticated/wishlist/wishlist';
 
 function App() {
 
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("auth-token"));
+
   const authGuard = (Component) => () => {
-    return <Component/>;
-    /*return localStorage.getItem("auth-token") ? (
-      <Component />
+    return localStorage.getItem("auth-token") ? (
+      <Component/>
     ) : (
       <Redirect to="/login" />
-    );*/
+    );
   };
-//{localStorage.getItem("auth-token") ? <UserDashboard/> : <Home/>}
-  const isTestLogin = false;
 
   return (
     <div className="App">
       <Router>
-        <NavBar/>
+        <NavBar isLoggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        <ScrollToTop />
         <Switch>
           <Route path="/home">
             <Home />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login setLoggedIn={setLoggedIn}/>
           </Route>
           <Route path="/register">
             <Registration />
@@ -49,18 +56,20 @@ function App() {
           <Route path="/register2">
             <Registration2 />
           </Route>
-          <Route path="/updatePassword">
-            <UpdatePassword/>
+          <Route path="/about">
+            <About />
           </Route>
-          <Route path="/createGroup">
-            <CreateGroup/>
-          </Route>
-          <Route path="/groupDashboard">
-            <GroupDashboard />
-          </Route>
+          <Route path="/updatePassword" render={authGuard(UpdatePassword)}></Route>
+          <Route path="/updateProfile" render={authGuard(UpdateProfile)}></Route>
+          <Route path="/profile" render={authGuard(Profile)}></Route>
+          <Route path="/joinGroup" render={authGuard(JoinGroup)}></Route>
+          <Route path="/createGroup" render={authGuard(CreateGroup)}></Route>
+          <Route path="/addExclusion" render={authGuard(AddExclusion)}></Route>
+          <Route path="/groupDashboard/:groupId" render={authGuard(GroupDashboard)}></Route>
+          <Route path="/wishlist" render={authGuard(Wishlist)}></Route>
           <Route path="/dashboard" render={authGuard(UserDashboard)}></Route>
           <Route exact path="/">
-            {isTestLogin ? <UserDashboard/> : <Home/>}
+            {localStorage.getItem("auth-token") ? <UserDashboard/> : <Home/>}
           </Route>
           <Route path="*">
             <NotFound />
